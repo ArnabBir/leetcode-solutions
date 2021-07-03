@@ -21,6 +21,7 @@ public:
         for(int i = l; i <= r; ++i) {
             if(inorder[i] == val) {
                 m = i;
+                break;
             }
         }
         int left = m-l;
