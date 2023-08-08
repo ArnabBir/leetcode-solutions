@@ -1,20 +1,17 @@
+// Link : https://leetcode.com/problems/maximum-product-subarray/
+
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        long long int ans = (int)*max_element(nums.begin(), nums.end());
-        long long int prod = 1;
-        int n = nums.size();
-        for(int i = 0; i < n; ++i) {
-            prod *= nums[i];
-            ans = max(ans, prod);
-            if(prod == 0)   prod = 1;
+        int maxsofar = nums[0];
+        int minsofar = nums[0];
+        int ans = maxsofar;
+        for (int i = 1; i < (int)nums.size(); ++i) {
+            int temp = max(nums[i], max(nums[i]*maxsofar, nums[i]*minsofar));
+            minsofar = min(nums[i], min(nums[i]*maxsofar, nums[i]*minsofar));
+            maxsofar = temp;
+            ans = max(maxsofar, ans);
         }
-        prod = 1;
-        for(int i = n-1; i >= 0; --i) {
-            prod *= nums[i];
-            ans = max(ans, prod);
-            if(prod == 0)   prod = 1;
-        }
-        return (int)ans;
+        return ans;
     }
 };
