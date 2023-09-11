@@ -22,13 +22,11 @@ public:
             if (i2 < n2) {
                 curr = 2;
             }
-            cout<<v1[i1]<<endl;
             return v1[i1++];
         } else {
             if (i1 < n1) {
                 curr = 1;
             }
-            cout<<v2[i2]<<endl;
             return v2[i2++];
         }
     }
