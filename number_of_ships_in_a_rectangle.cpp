@@ -21,7 +21,6 @@ class Solution {
             return 0;
         }
         string key = getKey(lx, ly, rx, ry);
-        //cout<<key<<endl;
         if (cache.find(key) != cache.end()) {
             return cache[key];
         }
