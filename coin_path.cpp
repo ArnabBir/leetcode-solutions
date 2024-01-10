@@ -52,3 +52,48 @@ public:
         return dp[n-1].second;
     }
 };
+
+class SolutionAlternate {
+
+    long jump(vector<int>& dp,
+              vector<int>& path,
+              vector<int>& coins,
+              int curr, int maxJump) {
+        int n = coins.size();
+        if (curr == n-1 && coins[curr] >= 0) {
+            return coins[curr];
+        }
+        if (dp[curr] != -1) {
+            return dp[curr];
+        }
+        int mincost = INT_MAX;
+        for (int next = curr + 1; next <= curr + maxJump && next < n; ++next) {
+            if (coins[next] == -1) {
+                continue;
+            }
+            long cost = coins[curr] + jump(dp, path, coins, next, maxJump);
+            if (cost < mincost) {
+                mincost = cost;
+                path[curr] = next;
+            }
+        }
+        return dp[curr] = mincost;
+    }
+
+public:
+    vector<int> cheapestJump(vector<int>& coins, int maxJump) {
+        int n = coins.size();
+        vector<int> dp(n, -1);
+        vector<int> path(n, -1);
+        jump(dp, path, coins, 0, maxJump);
+        vector<int> ans;
+        int i;
+        for (i = 0; i < n && path[i] > 0; i = path[i]) {
+            ans.push_back(i+1);
+        }
+        if (i == n-1 && coins[i] >= 0) {
+            ans.push_back(i+1);
+        }
+        return ans;
+    }
+};
